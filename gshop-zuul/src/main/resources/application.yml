@@ -1,0 +1,26 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: gshop-zuul-gateway
+
+eureka:
+  client:                                               #客户端注册 -> Eureka
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:                                             #自定义实例名称
+    instance-id: zuul-gateway:${server.port}
+    prefer-ip-address: true                             #访问路径可以显示ip地址
+
+
+info:                                                   #Actuator监控信息info
+  app.name: dafty-gshop
+  company.name: dafty.club
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+zuul:
+  routes:
+    mydept.serviceId: microservice-provider             #通过zuul路由代理访问http://localhost:9527/mydept/dept/get/1
+    mydept.path: /mydept/**
+  ignored-services: microservice-provider               #禁止直接访问http://localhost:9527/microservice-provider/dept/get/1，所有忽略用 "*"
+  prefix: /dafty                                        #添加公共前缀http://localhost:9527/dafty/mydept/dept/get/1

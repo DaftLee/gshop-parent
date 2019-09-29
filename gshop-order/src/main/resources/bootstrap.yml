@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      name: gshop-config-order  #配置中心中配置文件的名字
+      profile: dev                        #本次生效的配置是配置中心里哪个标签
+      label: master
+      uri: http://localhost:3344          #配置中心url地址
+
